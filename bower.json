@@ -1,0 +1,13 @@
+{
+  "name": "blockly",
+  "homepage": "https://github.com/faizshukri/blockly",
+  "version": "0.0.0",
+  "main": "./blockly_uncompressed.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
