@@ -7,6 +7,9 @@
     "./blocks_compressed.js",
     "./msg/js/en.js"
   ],
+  "dependencies": {
+    "closure-library": "faizshukri/closure-library#master"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
