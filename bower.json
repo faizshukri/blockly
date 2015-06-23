@@ -2,7 +2,11 @@
   "name": "blockly",
   "homepage": "https://github.com/faizshukri/blockly",
   "version": "0.0.0",
-  "main": "./blockly_uncompressed.js",
+  "main": [
+    "./blockly_uncompressed.js",
+    "./blocks_compressed.js",
+    "./msg/js/en.js"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
