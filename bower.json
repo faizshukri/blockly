@@ -3,13 +3,10 @@
   "homepage": "https://github.com/faizshukri/blockly",
   "version": "0.0.0",
   "main": [
-    "./blockly_uncompressed.js",
+    "./blockly_compressed.js",
     "./blocks_compressed.js",
     "./msg/js/en.js"
   ],
-  "dependencies": {
-    "closure-library": "google/closure-library#master"
-  },
   "ignore": [
     "**/.*",
     "node_modules",
