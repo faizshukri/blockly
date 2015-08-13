@@ -36,7 +36,7 @@ goog.require('goog.userAgent');
 /**
  * Class for an editable text field.
  * @param {string} text The initial content of the field.
- * @param {Function} opt_changeHandler An optional function that is called
+ * @param {Function=} opt_changeHandler An optional function that is called
  *     to validate any constraints on what the user entered.  Takes the new
  *     text as an argument and returns either the accepted text, a replacement
  *     text, or null to abort the change.
@@ -48,15 +48,6 @@ Blockly.FieldTextInput = function(text, opt_changeHandler) {
   this.setChangeHandler(opt_changeHandler);
 };
 goog.inherits(Blockly.FieldTextInput, Blockly.Field);
-
-/**
- * Clone this FieldTextInput.
- * @return {!Blockly.FieldTextInput} The result of calling the constructor again
- *   with the current values of the arguments used during construction.
- */
-Blockly.FieldTextInput.prototype.clone = function() {
-  return new Blockly.FieldTextInput(this.getText(), this.changeHandler_);
-};
 
 /**
  * Mouse cursor style when over the hotspot that initiates the editor.
@@ -135,6 +126,7 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
   // Create the input.
   var htmlInput = goog.dom.createDom('input', 'blocklyHtmlInput');
   htmlInput.setAttribute('spellcheck', this.spellcheck_);
+  /** @type {!HTMLInputElement} */
   Blockly.FieldTextInput.htmlInput_ = htmlInput;
   div.appendChild(htmlInput);
 
@@ -209,7 +201,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
 Blockly.FieldTextInput.prototype.validate_ = function() {
   var valid = true;
   goog.asserts.assertObject(Blockly.FieldTextInput.htmlInput_);
-  var htmlInput = /** @type {!Element} */ (Blockly.FieldTextInput.htmlInput_);
+  var htmlInput = Blockly.FieldTextInput.htmlInput_;
   if (this.sourceBlock_ && this.changeHandler_) {
     valid = this.changeHandler_(htmlInput.value);
   }

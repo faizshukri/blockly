@@ -109,7 +109,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
   },
   /**
    * Create XML to represent the argument inputs.
-   * @return {Element} XML storage element.
+   * @return {!Element} XML storage element.
    * @this Blockly.Block
    */
   mutationToDom: function() {
@@ -570,12 +570,12 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     var input = this.getInput('TOPROW');
     if (input) {
       if (this.arguments_.length) {
-        if (!this.getField_('WITH')) {
+        if (!this.getField('WITH')) {
           input.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
           input.init();
         }
       } else {
-        if (this.getField_('WITH')) {
+        if (this.getField('WITH')) {
           input.removeField('WITH');
         }
       }
@@ -583,7 +583,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
   },
   /**
    * Create XML to represent the (non-editable) name and arguments.
-   * @return {Element} XML storage element.
+   * @return {!Element} XML storage element.
    * @this Blockly.Block
    */
   mutationToDom: function() {
@@ -705,7 +705,7 @@ Blockly.Blocks['procedures_ifreturn'] = {
   },
   /**
    * Create XML to represent whether this block has a return value.
-   * @return {Element} XML storage element.
+   * @return {!Element} XML storage element.
    * @this Blockly.Block
    */
   mutationToDom: function() {
@@ -733,10 +733,6 @@ Blockly.Blocks['procedures_ifreturn'] = {
    * @this Blockly.Block
    */
   onchange: function() {
-    if (!this.workspace) {
-      // Block has been deleted.
-      return;
-    }
     var legal = false;
     // Is the block nested in a procedure?
     var block = this;
