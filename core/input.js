@@ -32,7 +32,6 @@ goog.require('Blockly.Connection');
 goog.require('Blockly.FieldLabel');
 goog.require('goog.asserts');
 
-
 /**
  * Class for an input with an optional field.
  * @param {number} type The type of the input.
@@ -228,3 +227,4 @@ Blockly.Input.prototype.dispose = function() {
   }
   this.sourceBlock_ = null;
 };
+

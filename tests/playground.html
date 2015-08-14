@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <title>Blockly Playground</title>
 <script src="../blockly_uncompressed.js"></script>
-<script src="../generators/java.js"></script>
-<script src="../generators/java/text.js"></script>
 <script src="../generators/javascript.js"></script>
 <script src="../generators/javascript/logic.js"></script>
 <script src="../generators/javascript/loops.js"></script>
@@ -15,6 +13,15 @@
 <script src="../generators/javascript/colour.js"></script>
 <script src="../generators/javascript/variables.js"></script>
 <script src="../generators/javascript/procedures.js"></script>
+<script src="../generators/java.js"></script>
+<script src="../generators/java/logic.js"></script>
+<script src="../generators/java/loops.js"></script>
+<script src="../generators/java/math.js"></script>
+<script src="../generators/java/text.js"></script>
+<script src="../generators/java/lists.js"></script>
+<script src="../generators/java/colour.js"></script>
+<script src="../generators/java/variables.js"></script>
+<script src="../generators/java/procedures.js"></script>
 <script src="../generators/php.js"></script>
 <script src="../generators/php/logic.js"></script>
 <script src="../generators/php/loops.js"></script>
@@ -445,9 +452,9 @@ h1 {
     &nbsp;
     <input type="button" value="Import from XML" onclick="fromXml()">
     <br>
-    <input type="button" value="To Java" onclick="toCode('Java')">
-    <br>
     <input type="button" value="To JavaScript" onclick="toCode('JavaScript')">
+    &nbsp;
+    <input type="button" value="To Java" onclick="toCode('Java')">
     &nbsp;
     <input type="button" value="To Python" onclick="toCode('Python')">
     &nbsp;

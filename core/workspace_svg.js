@@ -166,10 +166,6 @@ Blockly.WorkspaceSvg.prototype.dispose = function() {
   }
   this.svgBlockCanvas_ = null;
   this.svgBubbleCanvas_ = null;
-  if (this.toolbox_) {
-    this.toolbox_.dispose();
-    this.toolbox_ = null;
-  }
   if (this.flyout_) {
     this.flyout_.dispose();
     this.flyout_ = null;
@@ -491,6 +487,7 @@ Blockly.WorkspaceSvg.prototype.isDeleteArea = function(e) {
  * @private
  */
 Blockly.WorkspaceSvg.prototype.onMouseDown_ = function(e) {
+  Blockly.latestClick = { x: e.clientX, y: e.clientY }; // Might be needed?
   this.markFocused();
   if (Blockly.isTargetInput_(e)) {
     return;

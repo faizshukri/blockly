@@ -31,6 +31,7 @@ goog.require('Blockly.Msg');
 goog.require('goog.asserts');
 goog.require('goog.dom');
 goog.require('goog.userAgent');
+goog.require('goog.events.KeyCodes');
 
 
 /**
@@ -161,10 +162,9 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
  */
 Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function(e) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
-  var enterKey = 13, escKey = 27;
-  if (e.keyCode == enterKey) {
+  if (e.keyCode == goog.events.KeyCodes.ENTER) {
     Blockly.WidgetDiv.hide();
-  } else if (e.keyCode == escKey) {
+  } else if (e.keyCode == goog.events.KeyCodes.ESC) {
     this.setText(htmlInput.defaultValue);
     Blockly.WidgetDiv.hide();
   }
@@ -177,8 +177,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function(e) {
  */
 Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
-  var escKey = 27;
-  if (e.keyCode != escKey) {
+  if (e.keyCode != goog.events.KeyCodes.ESC) {
     // Update source block.
     var text = htmlInput.value;
     if (text !== htmlInput.oldValue_) {

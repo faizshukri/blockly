@@ -47,7 +47,7 @@ Blockly.FieldImage = function(src, width, height, opt_alt) {
   this.width_ = Number(width);
   this.size_ = {height: this.height_ + 10, width: this.width_};
   this.text_ = opt_alt || '';
-  this.setValue(src);
+  this.setSrc(src);
 };
 goog.inherits(Blockly.FieldImage, Blockly.Field);
 
@@ -62,6 +62,7 @@ Blockly.FieldImage.prototype.rectElement_ = null;
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
 Blockly.FieldImage.prototype.EDITABLE = false;
+Blockly.FieldImage.prototype.SERIALIZABLE = false;
 
 /**
  * Install this image on a block.
@@ -80,7 +81,7 @@ Blockly.FieldImage.prototype.init = function(block) {
       {'height': this.height_ + 'px',
        'width': this.width_ + 'px',
        'y': offsetY}, this.fieldGroup_);
-  this.setValue(this.src_);
+  this.setSrc(this.src_);
   if (goog.userAgent.GECKO) {
     // Due to a Firefox bug which eats mouse events on image elements,
     // a transparent rectangle needs to be placed on top of the image.
@@ -123,7 +124,7 @@ Blockly.FieldImage.prototype.setTooltip = function(newTip) {
  * @return {string} Current text.
  * @override
  */
-Blockly.FieldImage.prototype.getValue = function() {
+Blockly.FieldImage.prototype.getSrc = function() {
   return this.src_;
 };
 
@@ -132,7 +133,7 @@ Blockly.FieldImage.prototype.getValue = function() {
  * @param {?string} src New source.
  * @override
  */
-Blockly.FieldImage.prototype.setValue = function(src) {
+Blockly.FieldImage.prototype.setSrc = function(src) {
   if (src === null) {
     // No change if null.
     return;

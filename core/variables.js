@@ -76,6 +76,99 @@ Blockly.Variables.allVariables = function(root) {
   return variableList;
 };
 
+Blockly.Variables.Intersection = function(arr1, arr2) {
+  var result = goog.array.filter(arr1, function(val, index, a1) {
+    return goog.array.contains(arr2, val);
+  });
+  return result;
+}
+/**
+ * Find all user-created variables with their types.
+ * @param {!Blockly.Block|!Blockly.Workspace} root Root block or workspace.
+ * @return {!} Hash of variable names and their types.
+ */
+Blockly.Variables.allVariablesTypes = function(root) {
+  var blocks;
+  if (root.getDescendants) {
+    // Root is Block.
+    blocks = root.getDescendants();
+  } else if (root.getAllBlocks) {
+    // Root is Workspace.
+    blocks = root.getAllBlocks();
+  } else {
+    throw 'Not Block or Workspace: ' + root;
+  }
+  var variableHash = Object.create(null);
+  var variableTypes = Object.create(null);
+  // Iterate through every block and add each variable to the hash.
+  for (var x = 0; x < blocks.length; x++) {
+    var func = blocks[x].getVarsTypes;
+    if (func) {
+        var temp = '';
+        for (var t in variableHash) {
+          temp += t + ':'+variableHash[t]+',';
+        }
+      var blockVariablesTypes = func.call(blocks[x]);
+      for (var key in blockVariablesTypes) {
+        if (blockVariablesTypes.hasOwnProperty(key)) {
+          // For purposes of types, Colours are strings.  We want to convert
+          // them all to strings
+          for (var slot = 0; slot < blockVariablesTypes[key].length; slot++) {
+            if (blockVariablesTypes[key][slot] === 'Colour') {
+              blockVariablesTypes[key][slot] = 'String';
+            }
+          }
+          if (typeof variableHash[key] === 'undefined') {
+            variableHash[key] = blockVariablesTypes[key];
+          } else {
+            var intersect = Blockly.Variables.Intersection(
+                      variableHash[key], blockVariablesTypes[key]);
+            if (goog.array.isEmpty(intersect)) {
+              intersect = ['Var'];
+            }
+            console.log('Block:'+ blocks[x].type + '.'+blocks[x].id+
+            ' For: '+key+' was:'+variableHash[key]+' got:'+
+            blockVariablesTypes[key]+' result='+intersect);
+            variableHash[key] = intersect;
+          }
+        }
+      }
+    }
+  }
+  //
+  // We now have all of the variables.  Next we want to go through and flatten
+  // the types into what we know and what we don't know.  There will be several
+  // options here.
+  //   1) We have a single type for the variable.  This is the easy case.  We
+  //      take that type.
+  //   2) We have no type information.  For these we will assume that the
+  //      type will be a scalar.
+  //   3) We have more than one type, but the types are all mutable (i.e. int
+  //      vs float or JSON vs Array).  For that we use the superior type
+  //   4) We have a conflict between types.  For this we will take the superior
+  //      type and then tell all of the functions that there is a conflict on
+  //      that variable which needs to be resolved.
+  var variableList = Object.create(null);;
+  for (var key in variableHash) {
+    if (variableHash[key].length === 0) {
+      variableList[key] = 'Number';
+    }
+    else if (variableHash[key].length === 1) {
+      variableList[key] = variableHash[key][0];
+    }
+    else if (goog.array.indexOf(variableHash[key], 'Object') !== -1) {
+      variableList[key] = variableHash[key][0];
+    } else {
+      // Conflict of types and JSON isn't one of them. For now we will
+      // return the first one we found
+      console.log('Multiple types found for '+key+' '+variableHash[key]);
+      variableList[key] = variableHash[key][0];
+    }
+
+  }
+  return variableList;
+};
+
 /**
  * Find all instances of the specified variable and rename them.
  * @param {string} oldName Variable to rename.

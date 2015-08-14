@@ -147,7 +147,7 @@ Blockly.BlockSvg.prototype.warning = null;
  * Returns a list of mutator, comment, and warning icons.
  * @return {!Array} List of icons.
  */
-Blockly.BlockSvg.prototype.getIcons = function() {
+Blockly.BlockSvg.prototype.getIcons = function(getAll) {
   var icons = [];
   if (this.mutator) {
     icons.push(this.mutator);
@@ -342,7 +342,7 @@ Blockly.BlockSvg.prototype.setCollapsed = function(collapsed) {
 
   var COLLAPSED_INPUT_NAME = '_TEMP_COLLAPSED_INPUT';
   if (collapsed) {
-    var icons = this.getIcons();
+    var icons = this.getIcons(true);
     for (var i = 0; i < icons.length; i++) {
       icons[i].setVisible(false);
     }
@@ -413,7 +413,7 @@ Blockly.BlockSvg.prototype.onMouseDown_ = function(e) {
     this.draggedBubbles_ = [];
     var descendants = this.getDescendants();
     for (var i = 0, descendant; descendant = descendants[i]; i++) {
-      var icons = descendant.getIcons();
+      var icons = descendant.getIcons(true);
       for (var j = 0; j < icons.length; j++) {
         var data = icons[j].getIconLocation();
         data.bubble = icons[j];
@@ -636,7 +636,7 @@ Blockly.BlockSvg.prototype.moveConnections_ = function(dx, dy) {
   for (var i = 0; i < myConnections.length; i++) {
     myConnections[i].moveBy(dx, dy);
   }
-  var icons = this.getIcons();
+  var icons = this.getIcons(true);
   for (var i = 0; i < icons.length; i++) {
     icons[i].computeIconLocation();
   }
@@ -1014,7 +1014,7 @@ Blockly.BlockSvg.prototype.dispose = function(healStack, animate,
   // Stop rerendering.
   this.rendered = false;
 
-  var icons = this.getIcons();
+  var icons = this.getIcons(false);
   for (var i = 0; i < icons.length; i++) {
     icons[i].dispose();
   }
@@ -1136,7 +1136,7 @@ Blockly.BlockSvg.prototype.updateColour = function() {
   this.svgPathDark_.setAttribute('fill', goog.color.rgbArrayToHex(rgbDark));
   this.svgPath_.setAttribute('fill', hexColour);
 
-  var icons = this.getIcons();
+  var icons = this.getIcons(true);
   for (var i = 0; i < icons.length; i++) {
     icons[i].updateColour();
   }
@@ -1373,7 +1373,7 @@ Blockly.BlockSvg.prototype.render = function(opt_bubble) {
     cursorX = -cursorX;
   }
   // Move the icons into position.
-  var icons = this.getIcons();
+  var icons = this.getIcons(false);
   for (var i = 0; i < icons.length; i++) {
     cursorX = icons[i].renderIcon(cursorX);
   }
