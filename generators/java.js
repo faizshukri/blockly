@@ -111,7 +111,7 @@ Blockly.Java.variableTypes_ = {};
  * List of all known Blockly variable types. 
  *  NOTE: Only valid after a call to workspaceToCode
  */
-Blockly.Java.blocklyTypes_ = {}
+Blockly.Java.blocklyTypes_ = {};
 /**
  * Default Name of the application for use by all generated classes
  */
@@ -151,7 +151,7 @@ Blockly.Java.setAppName = function(name) {
     name = 'MyApp';
   }
   this.AppName_ = name;
-}
+};
 
 /**
  * Get the application name for generated classes
@@ -159,7 +159,7 @@ Blockly.Java.setAppName = function(name) {
  */
 Blockly.Java.getAppName = function() {
   return this.AppName_;
-}
+};
 
 /**
  * Set the package for this generated Java code
@@ -170,7 +170,7 @@ Blockly.Java.setPackage = function(javaPackage) {
     javaPackage = 'demo';
   }
   this.Package_ = javaPackage;
-}
+};
 
 /**
  * Get the package for this generated Java code
@@ -178,7 +178,7 @@ Blockly.Java.setPackage = function(javaPackage) {
  */
 Blockly.Java.getPackage = function() {
   return this.Package_;
-}
+};
 
 /**
  * Set the base class (if any) for the generated Java code
@@ -186,7 +186,7 @@ Blockly.Java.getPackage = function() {
  */
 Blockly.Java.setBaseclass = function(baseclass) {
   this.Baseclass_ = baseclass;
-}
+};
 
 /**
  * Get the base class (if any) for the generated Java code
@@ -194,7 +194,7 @@ Blockly.Java.setBaseclass = function(baseclass) {
  */
 Blockly.Java.getBaseclass = function() {
   return this.Baseclass_;
-}
+};
 
 /**
  * Get the Java type of a variable by name
@@ -253,14 +253,14 @@ Blockly.Java.getImports = function() {
  */
 Blockly.Java.setExtraImports = function(extraImports) {
   this.ExtraImports_ = extraImports;
-}
+};
 /**
  * Specify whether to inline the Var class or reference it externally
  * @param {string} inlineclass Generate the Var class inline
  */
 Blockly.Java.setVarClassInline = function(inlineclass) {
   this.INLINEVARCLASS = inlineclass;
-}
+};
 
 
 Blockly.Java.getClasses = function() {
@@ -272,11 +272,11 @@ Blockly.Java.getClasses = function() {
     code += '\n\n';
   }
   return code;
-}
+};
 
 Blockly.Java.setExtraClass = function(name, code) {
   this.classes_[name] = code.join('\n')+'\n';
-}
+};
 
 /*
  * Save away the base class implementation so we can call it but override it
@@ -304,7 +304,7 @@ Blockly.Java.workspaceToCode = function(workspace, parms) {
                this.getClasses()
                ;
   return finalcode;
-}
+};
 
 Blockly.Java.getValueType = function(block, field) {
   var targetBlock = block.getInputTargetBlock(field);
@@ -313,7 +313,7 @@ Blockly.Java.getValueType = function(block, field) {
   }
 
   return targetBlock.outputConnection.check_;
-}
+};
 
 Blockly.Java.provideVarClass = function() {
   if (this.INLINEVARCLASS) {
@@ -974,7 +974,7 @@ Blockly.Java.provideVarClass = function() {
   } else {
     Blockly.Java.addImport('extreme.sdn.client.Var');
   }
-}
+};
 /**
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
