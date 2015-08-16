@@ -292,18 +292,19 @@ Blockly.Java.workspaceToCode_ = Blockly.Java.workspaceToCode;
 Blockly.Java.workspaceToCode = function(workspace, parms) {
   // Generate the code first to get all of the required imports calculated.
   var code = this.workspaceToCode_(workspace,parms);
-  var finalcode = 'package ' + this.getPackage() + ';\n\n' +
-                  this.getImports() + '\n\n' +
-                  'public class ' + this.getAppName();
-  if (this.getBaseclass()) {
-    finalcode += ' extends ' + this.getBaseclass();
-  }
-  finalcode += ' {\n\n' +
-               code + '\n' +
-               '}\n\n' +
-               this.getClasses()
-               ;
-  return finalcode;
+  //var finalcode = 'package ' + this.getPackage() + ';\n\n' +
+  //                this.getImports() + '\n\n' +
+  //                'public class ' + this.getAppName();
+  //if (this.getBaseclass()) {
+  //  finalcode += ' extends ' + this.getBaseclass();
+  //}
+  //finalcode += ' {\n\n' +
+  //             code + '\n' +
+  //             '}\n\n' +
+  //             this.getClasses()
+  //             ;
+  //return finalcode;
+  return code;
 };
 
 Blockly.Java.getValueType = function(block, field) {
@@ -1050,8 +1051,10 @@ Blockly.Java.init = function(workspace, imports) {
     this.variableTypes_[key] = type;
 
     if (x < varsToOutput) {
-      defvars.push('protected ' +
-                  type + ' '+
+      //defvars.push('protected ' +
+
+      // Declare variable and it's initializer
+      defvars.push(type + ' '+
                this.variableDB_.getName(variables[x],
                                                 Blockly.Variables.NAME_TYPE) +
                   initializer +
@@ -1137,7 +1140,7 @@ Blockly.Java.finish = function(code) {
       allDefs += header + def + '\n\n';
     }
   }
-  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
+  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n') + code;
 };
 
 /**
