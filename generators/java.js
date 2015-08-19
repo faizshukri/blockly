@@ -1036,12 +1036,13 @@ Blockly.Java.init = function(workspace, imports) {
     } else if (typeof type !== 'undefined' && type !== '') {
       if (Blockly.Blocks[type] && Blockly.Blocks[type].GBPClass ) {
         type = Blockly.Blocks[type].GBPClass;
-      } else {
-        console.log('Unknown type for '+key+' using Var for '+type);
-        type = 'Var';
-        initializer = ' = new Var(0)';
-        needVarClass = true;
       }
+      //} else {
+      //  console.log('Unknown type for '+key+' using Var for '+type);
+      //  type = type;
+      //  initializer = ' = new Var(0)';
+      //  needVarClass = true;
+      //}
     } else {
       // Unknown type
       console.log('Unknown type for '+key+' using Object');
